@@ -27,7 +27,7 @@ def factorial(n:int) -> int:
         raise ValueError("Factorial is not defined for negative numbers.")
     return math.factorial(n)
 def main() -> None:
-    msg: str = "Hello World!"
+    msg: str = str(input("Enter a message: "))
     x: float = float(input("Enter a number: "))
     y: float = float(input("Enter another number: "))
     print(msg)
