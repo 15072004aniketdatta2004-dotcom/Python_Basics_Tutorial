@@ -39,8 +39,26 @@ def main() -> None:
     print("%f" % sqrt(x))
     print("%f" % modulo(x, y))
     print(factorial(int(x)))
-    
-
+    # import addressof and c_int modules 
+    # from ctypes module
+    from ctypes import c_int, addressof
+    # get memory address of variable
+    x0:int = 10
+    print(f'value of x at time instant t1 : {x0}')
+    print(f'address of x at time instant t1 : {addressof(c_int(x0))}')
+    x0:int = 20
+    print(f'value of x at time instant t2 : {x0}')
+    print(f'address of x at time instant t2 : {addressof(c_int(x0))}')
+    x0:int = 10+20
+    print(f'value of x at time instant t3 : {x0}')
+    print(f'address of x at time instant t3 : {addressof(c_int(x0))}')
+    # get object id of variable
+    x1: str = 'Python 3.24.0'
+    print(hex(id(x1)))
+    y1: str = 'Python 3.24.0'
+    print(hex(id(y1)))
+    z1: str = 'Python 3.24.2'
+    print(hex(id(z1)))
 if __name__ == "__main__":
     main()
     
