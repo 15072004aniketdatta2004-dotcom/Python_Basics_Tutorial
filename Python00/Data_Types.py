@@ -29,6 +29,7 @@ class DataTypes:
         print(f"Object id of the shallow copied list: {id(shallow_copied_list)}")
         print(f"Object id of the shared internal lists: {id(self.list_value[0])} for original list and {id(shallow_copied_list[0])} for shallow copy")
         shallow_copied_list.remove([1, 2])
+        print("Shallow Copied List after removing an element: ", shallow_copied_list)
         print("original List after removing an element from shallow copy: ", self.list_value)
     def deep_copy(self):
         import copy
