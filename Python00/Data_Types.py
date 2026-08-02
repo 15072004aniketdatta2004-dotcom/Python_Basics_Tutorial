@@ -44,7 +44,9 @@ class DataTypes:
         deep_copied_list.remove([3, 4, 5])
         print("Deep Copied List after removing an element: ", deep_copied_list)
         print("original List after removing an element from deep copy: ", self.list_value)
-       
+    def __str__(self):
+        return f"DataTypes(integer_value={self.integer_value}, float_value={self.float_value}, string_value='{self.string_value}', boolean_value={self.boolean_value}, list_value={self.list_value}, tuple_value={self.tuple_value}, set_value={self.set_value}, dict_value={self.dict_value})"
+        pass
 if __name__ == "__main__":
     data_types = DataTypes()
     data_types.display_data_types()
