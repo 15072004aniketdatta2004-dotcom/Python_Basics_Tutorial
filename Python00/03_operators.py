@@ -273,59 +273,60 @@ except ValueError:
     print("Error: Please enter a valid decimal number.")
 
 
-def float_decimal_to_hexadecimal(float_decimal):
-    if not isinstance(float_decimal, (int, float)):
-        raise TypeError("Input must be a number (int or float).")
+# def float_decimal_to_hexadecimal(float_decimal):
+#     if not isinstance(float_decimal, (int, float)):
+#         raise TypeError("Input must be a number (int or float).")
     
-    sign = "-" if float_decimal < 0 else ""
-    float_decimal = abs(float_decimal)
+#     sign = "-" if float_decimal < 0 else ""
+#     float_decimal = abs(float_decimal)
     
-    integer_part = int(float_decimal)
-    fractional_part = float_decimal - integer_part
+#     integer_part = int(float_decimal)
+#     fractional_part = float_decimal - integer_part
     
-    hexadecimal_integer = hex(integer_part).replace("0x", "")
+#     hexadecimal_integer = hex(integer_part).replace("0x", "")
     
-    hexadecimal_fractional = []
-    while fractional_part and len(hexadecimal_fractional) < 10:
-        fractional_part *= 16
-        digit = int(fractional_part)
-        hexadecimal_fractional.append(hex(digit).replace("0x", ""))
-        fractional_part -= digit
+#     hexadecimal_fractional = []
+#     while fractional_part and len(hexadecimal_fractional) < 10:
+#         fractional_part *= 16
+#         digit = int(fractional_part)
+#         hexadecimal_fractional.append(hex(digit).replace("0x", ""))
+#         fractional_part -= digit
     
-    if hexadecimal_fractional:
-        result = f"{sign}{hexadecimal_integer}.{''.join(hexadecimal_fractional)}"
-    else:
-        result = f"{sign}{hexadecimal_integer}"
+#     if hexadecimal_fractional:
+#         result = f"{sign}{hexadecimal_integer}.{''.join(hexadecimal_fractional)}"
+#     else:
+#         result = f"{sign}{hexadecimal_integer}"
     
-    return result
+#     return result
 
-float_input = float(input("Enter a decimal float number to convert to hexadecimal: "))
-try:
-    hexadecimal_float = float_decimal_to_hexadecimal(float_input)
-    print(f"{float_input} in hexadecimal is: {hexadecimal_float}")
-except ValueError:
-    print("Error: Please enter a valid number.")
-# hexadecimal to float conversion
-def hexadecimal_to_float(hexadecimal_str):
-    if not isinstance(hexadecimal_str, str):
-        raise TypeError("Input must be a string.")
+# float_input = float(input("Enter a decimal float number to convert to hexadecimal: "))
+# try:
+#     hexadecimal_float = float_decimal_to_hexadecimal(float_input)
+#     print(f"{float_input} in hexadecimal is: {hexadecimal_float}")
+# except ValueError:
+#     print("Error: Please enter a valid number.")
+# # hexadecimal to float conversion
+# def hexadecimal_to_float(hexadecimal_str):
+#     if not isinstance(hexadecimal_str, str):
+#         raise TypeError("Input must be a string.")
     
-    if '.' in hexadecimal_str:
-        integer_part_str, fractional_part_str = hexadecimal_str.split('.')
-    else:
-        integer_part_str, fractional_part_str = hexadecimal_str, ''
+#     if '.' in hexadecimal_str:
+#         integer_part_str, fractional_part_str = hexadecimal_str.split('.')
+#     else:
+#         integer_part_str, fractional_part_str = hexadecimal_str, ''
     
-    integer_part = int(integer_part_str, 16) if integer_part_str else 0
+#     integer_part = int(integer_part_str, 16) if integer_part_str else 0
     
-    fractional_part = 0.0
-    for i, digit in enumerate(fractional_part_str):
-        fractional_part += int(digit, 16) * (16 ** -(i + 1))
+#     fractional_part = 0.0
+#     for i, digit in enumerate(fractional_part_str):
+#         fractional_part += int(digit, 16) * (16 ** -(i + 1))
     
-    return integer_part + fractional_part 
+#     return integer_part + fractional_part 
 
-hexadecimal_input = input("Enter a hexadecimal string to convert to decimal float: ")
-try:
-    decimal_float_value = hexadecimal_to_float(hexadecimal_input)
-    print(f"{hexadecimal_input} in decimal float is: {decimal_float_value}")
-except ValueError:
-    print("Error: Please enter a valid hexadecimal string.")
+# hexadecimal_input = input("Enter a hexadecimal string to convert to decimal float: ")
+# try:
+#     decimal_float_value = hexadecimal_to_float(hexadecimal_input)
+#     print(f"{hexadecimal_input} in decimal float is: {decimal_float_value}")
+# except ValueError:
+#     print("Error: Please enter a valid hexadecimal string.")
+
