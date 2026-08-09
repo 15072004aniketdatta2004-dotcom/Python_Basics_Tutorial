@@ -331,4 +331,30 @@ except ValueError:
 #     print("Error: Please enter a valid hexadecimal string.")
 
 # Logical Operators
+op1=boolean(input("Enter a boolean value (True/False) for op1: "))
+op2=boolean(input("Enter a boolean value (True/False) for op2: "))
+if op1 and op2:
+    print(f"Both {op1} and {op2} are True")
+if op1 or op2:
+    print(f"At least one of {op1} or {op2} is True")
+if not op1:
+    print(f"{op1} is False")
+if not op2:
+    print(f"{op2} is False")
+if op1 ^ op2:
+    print(f"Exactly one of {op1} or {op2} is True")
+
+
+## Bitwise Operators
+bitwise_a = int(input("Enter an integer for bitwise operations (a): "))
+bitwise_b = int(input("Enter another integer for bitwise operations (b): "))
+print(f"Bitwise AND of {bitwise_a} and {bitwise_b} is: {bitwise_a & bitwise_b}")
+print(f"Bitwise OR of {bitwise_a} and {bitwise_b} is: {bitwise_a | bitwise_b}")
+print(f"Bitwise XOR of {bitwise_a} and {bitwise_b} is: {bitwise_a ^ bitwise_b}")
+print(f"Bitwise NOT of {bitwise_a} is: {~bitwise_a}")
+print(f"Bitwise NOT of {bitwise_b} is: {~bitwise_b}")
+print(f"Left shift of {bitwise_a} by 1 is: {bitwise_a << 1}")
+print(f"Right shift of {bitwise_a} by 1 is: {bitwise_a >> 1}")
+print(f"Bitwise XNOR of {bitwise_a} and {bitwise_b} is: {~(bitwise_a ^ bitwise_b)}")
+
 
