@@ -323,6 +323,7 @@ def main() -> None:
     set1.add(4)
     print(f'set1 : {set1} and object id of set1 : {id(set1)}')
     print(f'set2 : {set2} and object id of set2 : {id(set2)}')
+    print(f'Length of set1: {len(set1)}')
 if __name__ == "__main__":
         main()
         
