@@ -357,4 +357,13 @@ print(f"Left shift of {bitwise_a} by 1 is: {bitwise_a << 1}")
 print(f"Right shift of {bitwise_a} by 1 is: {bitwise_a >> 1}")
 print(f"Bitwise XNOR of {bitwise_a} and {bitwise_b} is: {~(bitwise_a ^ bitwise_b)}")
 
+x=13 # 0000 0000 0000 1101
+y=25 # 0000 0000 0001 1001
+print(x & y) # 9 #0000 0000 0000 1001
+print(x | y) # 29 #0000 0000 0001 1101
+print(x ^ y) # 20 #0000 0000 0001 0100
+print(~x) # -14 # 1111 1111 1111 0010
+print(x << 2) # 52 # 0000 0000 0011 0100 #13*2^2=13*4=52
+print(x >> 2) # 3 # 0000 0000 0000 0011
+print(~(x ^ y)) # -21 # 1111 1111 1110 1011
 
