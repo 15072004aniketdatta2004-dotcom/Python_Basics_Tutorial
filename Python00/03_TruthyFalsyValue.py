@@ -7,7 +7,6 @@ class TruthyFalsyValue:
     def power(self, exponent: float,exponent2: float)-> float:
         return self.num ** exponent ** exponent2
     
-
 if __name__ == "__main__":
     num:float = float(input("Enter a value to check if it's truthy or falsy: "))
     truthy_falsy = TruthyFalsyValue(num)
