@@ -59,7 +59,6 @@ class ListOperationDemo:
         def f():
             x = [1, 2]
             x += [3, 4]
-
         dis.dis(f)
 
     @staticmethod
