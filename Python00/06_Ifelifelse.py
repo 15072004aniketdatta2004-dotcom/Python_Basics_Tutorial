@@ -28,10 +28,22 @@ class IfelifElse:
         else:
             print("The number is 100 or greater.")
         print("This is a simple control flow demonstration.")    
-
+    def assignment(self,month:str,day:int):
+        output_string:str =''
+        if (day<=10):
+            output_string+="Early "
+        if(day>=20):
+            output_string+="Late "
+        else:
+            output_string+="Mid "
+        output_string+=month
+        print(output_string)
 if __name__ == "__main__":
     number1 = float(input("Enter the first number: "))
     number2 = float(input("Enter the second number: "))
     comparison = IfelifElse(number1, number2)
     comparison.compare_numbers()
     comparison.controlFlow()
+    month:str= input("Enter a month: ") 
+    day:int = int(input("Enter a day: "))
+    comparison.assignment(month,day)   

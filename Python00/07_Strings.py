@@ -86,17 +86,90 @@ class StringsOverview:
             print(f"  s[{i}] = '{ch}' -> id: {id(ch)}, size: {sys.getsizeof(ch)} bytes")
 
         print("\n" + "=" * 60)
+    def stringConcatenation(self):
+        s1=''
+        s2='Python 3.14.2'
+        print(id(s1+s2))
+        print(id(s2+s1))
+        print((s1+s2)==(s2+s1))
+        s1='STELLA'
+        s2='MEGAN'
+        if((s1+s2)==(s2+s1)):
+            print("+ is commutative")
+        else:
+            print("+ is not commutative")
+        print(s1+" "+ s2)
 
+    def stringRepeatition(self,str1:str):
+        str2 = str1 * 3
+        print(str2)
+        if ((3*str1)==(str1*3)):
+            print("* is commutative")
+        else:
+            print("* is not commutative")
+    def inNotInOperator(self):
+        s1 = "Python 3.14.2"# Haystack Buffer #Boyer Moore Horspool
+        s2 = "Python" # Needle Buffer
+        s3 = "Java"
+        print(s2 in s1)
+        print(s3 in s1)
+        print(s2 not in s1)
+        print(s3 not in s1)
+    def stringFormatting(self):
+        print(f"Hello {self.input_str}")
+        print("Hello %s" % self.input_str)
+        print("Hello {}".format(self.input_str))
+    def comparingStrings(self):
+        print("Python"<"Python 3.14.2")
+        print("Python"<"python")
+        print(ord("P"))
+        print(ord("p"))
+        print("p"<"P")
+        print("Python"<"Pytorch")
+    def slicingStrings(self,input_str1:str):
+        print(type(input_str1))
+        print(input_str1[0])
+        print(input_str1[-1])
+        print(input_str1[2:4])
+        print(input_str1[2::3])
+        print(input_str1[:3:1])
+        print(input_str[::2])
+        print(input_str1[3::-1])
+        print(input_str1[::-1])
+        print(input_str[-6:-3:1])
+        str2:str="Hello, World!"
+        print(str2[3:1]) #Empty Slice
+        place="Williamstown"
+        print(place[0:-4:1]) #William
+        print(place[0:8:1]) #Williams
+        print(place[0:8:-1]) #Enpty slice
+        a:int=[6,5,4,3,2,1,0]
+        b:str="success"
+        c:str=b[a[-3]]+b[::4]
+        d:int=a[1]*a[2]*a[-3]*a[4//2]
+        x=str(c)+str(d)
+        print(f"type of x: {type(x)}")
+        print(f"x= {x}")
+    def understandingrange(self):
+        r1 = range(10)
+        r2 = range(10)
+        print(r1 == r2)  # True  (Value equality check succeeds in O(1))
+        print(r1 is r2)  # False (Distinct memory addresses on the heap)
+        print(id(r1) != id(r2))  # True
+        print(id(r1),id(r2))  # DIFFERENT memory addresses  
+    def  stringsAnalysis(self):
+        pass        
 if __name__=="__main__":
     input_str = input("Enter a string: ")
     s = StringsOverview(input_str)
     s.ASCIIValueGetter()
     s.charactersPrinter()
     s.stack_memory_pyframe_of_Strings_Analysis()
-    print(input_str[0])
-    print(input_str[-1])
-    print(input_str[2:4])
-    print(input_str[2::3])
-    print(input_str[:3:1])
-    print(input_str[::2])
     print(isinstance(input_str,str))    
+    s.stringConcatenation()
+    s.stringRepeatition(input_str)
+    s.inNotInOperator()
+    s.stringFormatting()
+    s.comparingStrings()
+    s.slicingStrings(input_str)
+    s.understandingrange()
