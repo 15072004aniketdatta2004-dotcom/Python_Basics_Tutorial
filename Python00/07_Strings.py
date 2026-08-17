@@ -172,8 +172,7 @@ class StringsOverview:
         print(newstr is self.input_str )
         self.input_str=sys.intern(self.input_str)
         print(id(newstr),id(self.input_str))
-        print(newstr is self.input_str )
-        pass 
+        print(newstr is self.input_str ) 
     class Demo:
         input_str = "STRING"  # Class-level literal (compiled into module co_consts)
         def LetSee(self):
@@ -183,7 +182,221 @@ class StringsOverview:
         #     self.input_str1=input_str1
     demo = Demo()    
     demo.LetSee()
-           
+    def whitespacesStripping(self, input_str1:str):
+        stripped_string=input_str1.strip()
+        right_stripped_string=input_str1.rstrip()
+        left_stripped_string=input_str1.lstrip()
+        print(f'stripped_string: {stripped_string}')
+        print(f'right_stripped_string: {right_stripped_string}')
+        print(f'left_stripped_string: {left_stripped_string}')
+        print(f'id(input_str1): {id(input_str1)}')
+        print(f'id(stripped_string): {id(stripped_string)}')
+        print(f'id(right_stripped_string): {id(right_stripped_string)}')
+        print(f'id(left_stripped_string): {id(left_stripped_string)}')
+        print(f'stripped_string is input_str1: {stripped_string is input_str1}')
+        print(f'right_stripped_string is input_str1: {right_stripped_string is input_str1}')
+        print(f'left_stripped_string is input_str1: {left_stripped_string is input_str1}')
+    def ImmutableObjectSequenceTypesString(self, input_str1:str):
+        """
+        Demonstrates the existence of:
+          1. Stack PyFrame object  — the live frame on the C call stack
+          2. PyObject references   — raw CPython object header (ob_refcnt, ob_type)
+          3. Heap allocation       — every string mutation creates a NEW object on the heap
+
+        Strings are IMMUTABLE SEQUENCE types: they support indexing, slicing,
+        iteration, len(), 'in', but NEVER in-place modification.
+        """
+        import sys
+        import ctypes
+
+        banner = lambda title: print(f"\n{'=' * 70}\n  {title}\n{'=' * 70}")
+
+        # ─────────────────────────────────────────────────────────────
+        #  SECTION 1 : STACK — PyFrame Object
+        # ─────────────────────────────────────────────────────────────
+        banner("SECTION 1 : STACK — PyFrame Object (sys._getframe)")
+
+        frame = sys._getframe(0)   # current executing frame
+
+        print(f"\n  ┌─ Frame Object ─────────────────────────────────────────")
+        print(f"  │  type(frame)        : {type(frame)}")
+        print(f"  │  id(frame)          : {id(frame)}  (frame's own heap address)")
+        print(f"  │  frame.f_code.co_name      : {frame.f_code.co_name}")
+        print(f"  │  frame.f_code.co_filename  : {frame.f_code.co_filename}")
+        print(f"  │  frame.f_code.co_varnames  : {frame.f_code.co_varnames}")
+        print(f"  │  frame.f_lineno            : {frame.f_lineno}")
+        print(f"  │  frame.f_locals keys       : {list(frame.f_locals.keys())}")
+        print(f"  └──────────────────────────────────────────────────────────")
+
+        # Show the CALLER's frame to illustrate the frame chain (stack)
+        caller_frame = frame.f_back
+        if caller_frame:
+            print(f"\n  ┌─ Caller Frame (f_back) ────────────────────────────────")
+            print(f"  │  caller.f_code.co_name     : {caller_frame.f_code.co_name}")
+            print(f"  │  caller.f_lineno            : {caller_frame.f_lineno}")
+            print(f"  │  id(caller_frame)           : {id(caller_frame)}")
+            print(f"  └──────────────────────────────────────────────────────────")
+
+        # Walk the full frame chain
+        print("\n  Full frame chain (stack → bottom):")
+        f = frame
+        depth = 0
+        while f is not None:
+            print(f"    [{depth}] {f.f_code.co_name:30s}  line {f.f_lineno}  id={id(f)}")
+            f = f.f_back
+            depth += 1
+
+        # Local variables on THIS frame — these are REFERENCES (pointers)
+        # stored on the stack frame, pointing to heap-allocated PyObjects
+        print(f"\n  ► 'input_str1' lives as a local variable reference on THIS frame.")
+        print(f"    Stack ref name : 'input_str1'")
+        print(f"    Points to heap : id = {id(input_str1)}")
+        print(f"    Value          : '{input_str1}'")
+
+        # ─────────────────────────────────────────────────────────────
+        #  SECTION 2 : PyObject — CPython Object Header on the Heap
+        # ─────────────────────────────────────────────────────────────
+        banner("SECTION 2 : PyObject — CPython Object Header via ctypes")
+
+        print("""
+  In CPython, every Python object is a C struct on the heap:
+
+      typedef struct {
+          Py_ssize_t  ob_refcnt;   // reference count
+          PyTypeObject *ob_type;   // pointer to type object
+          // ... type-specific data follows ...
+      } PyObject;
+
+  id(obj) returns the memory address of this struct.
+        """)
+
+        # Read the raw ob_refcnt from the PyObject header using ctypes
+        addr = id(input_str1)
+        # ob_refcnt is the first field — a Py_ssize_t (platform-sized signed int)
+        raw_refcnt = ctypes.c_ssize_t.from_address(addr).value
+        # ob_type pointer is right after ob_refcnt
+        type_ptr = ctypes.c_void_p.from_address(addr + ctypes.sizeof(ctypes.c_ssize_t)).value
+
+        print(f"  String value         : '{input_str1}'")
+        print(f"  id(input_str1)       : {addr}  (= PyObject* address on heap)")
+        print(f"  ob_refcnt (raw)      : {raw_refcnt}")
+        print(f"  sys.getrefcount()    : {sys.getrefcount(input_str1)}  (adds +1 temporary)")
+        print(f"  ob_type ptr          : {hex(type_ptr) if type_ptr else 'N/A'}")
+        print(f"  id(type(input_str1)) : {id(type(input_str1))}  (should match ob_type)")
+        print(f"  type(input_str1)     : {type(input_str1)}")
+        print(f"  sys.getsizeof()      : {sys.getsizeof(input_str1)} bytes")
+
+        # Show that each character (when extracted) is ALSO a PyObject on heap
+        print(f"\n  ► Each character extracted from the string is its own PyObject:")
+        for i in range(min(len(input_str1), 8)):
+            ch = input_str1[i]
+            ch_addr = id(ch)
+            ch_refcnt = ctypes.c_ssize_t.from_address(ch_addr).value
+            print(f"    input_str1[{i}] = '{ch}'  "
+                  f"id={ch_addr}  ob_refcnt={ch_refcnt}  "
+                  f"size={sys.getsizeof(ch)}B")
+
+        # ─────────────────────────────────────────────────────────────
+        #  SECTION 3 : HEAP — Immutability Proof (new objects each time)
+        # ─────────────────────────────────────────────────────────────
+        banner("SECTION 3 : HEAP — Immutability Creates New PyObjects")
+
+        original_id = id(input_str1)
+        print(f"\n  Original string : '{input_str1}'")
+        print(f"  Original id     : {original_id}")
+        print(f"  Original size   : {sys.getsizeof(input_str1)} bytes\n")
+
+        # Each operation below creates a NEW string on the heap
+        operations = {
+            "concatenation  (+)":   input_str1 + "!",
+            "repetition     (*)":   input_str1 * 2,
+            "slice          [1:]":  input_str1[1:],
+            "upper()":              input_str1.upper(),
+            "lower()":              input_str1.lower(),
+            "replace('a','@')":     input_str1.replace('a', '@'),
+            "strip()":              input_str1.strip(),
+            "join (reversed)":      ''.join(reversed(input_str1)),
+            "full slice     [:]":   input_str1[:],      # optimised: may reuse!
+        }
+
+        print(f"  {'Operation':<25s} {'Value':<25s} {'Heap id':<20s} {'Same obj?':<10s} {'Size':>6s}")
+        print(f"  {'─'*25} {'─'*25} {'─'*20} {'─'*10} {'─'*6}")
+
+        for desc, result in operations.items():
+            same = "YES ✓" if result is input_str1 else "NO ✗"
+            print(f"  {desc:<25s} {repr(result):<25s} {id(result):<20d} {same:<10s} {sys.getsizeof(result):>5d}B")
+
+        # Prove the ORIGINAL is untouched
+        print(f"\n  ► After ALL operations:")
+        print(f"    id(input_str1) is still : {id(input_str1)}")
+        print(f"    Value is still          : '{input_str1}'")
+        print(f"    Unchanged?              : {id(input_str1) == original_id}  ✓ IMMUTABLE")
+
+        # ─────────────────────────────────────────────────────────────
+        #  SECTION 4 : Sequence Protocol — Strings as Sequences
+        # ─────────────────────────────────────────────────────────────
+        banner("SECTION 4 : Sequence Type Protocol (str is a Sequence)")
+
+        print(f"\n  str supports the SEQUENCE protocol (indexing, slicing, iteration):")
+        print(f"    len(input_str1)          = {len(input_str1)}")
+        print(f"    input_str1[0]            = '{input_str1[0]}'")
+        print(f"    input_str1[-1]           = '{input_str1[-1]}'")
+        print(f"    input_str1[1:4]          = '{input_str1[1:4]}'")
+        print(f"    'a' in input_str1        = {'a' in input_str1}")
+        print(f"    input_str1.index('{input_str1[0]}') = {input_str1.index(input_str1[0])}")
+        print(f"    input_str1.count('{input_str1[0]}') = {input_str1.count(input_str1[0])}")
+
+        # Attempting mutation raises TypeError — proof of immutability
+        print(f"\n  ► Attempting in-place mutation (input_str1[0] = 'X'):")
+        try:
+            input_str1[0] = 'X'  # type: ignore
+        except TypeError as e:
+            print(f"    TypeError: {e}")
+            print(f"    ✓ Strings are IMMUTABLE — cannot assign to index")
+
+        # ─────────────────────────────────────────────────────────────
+        #  SECTION 5 : Reference Counting & Interning on the Heap
+        # ─────────────────────────────────────────────────────────────
+        banner("SECTION 5 : Reference Counting & String Interning on Heap")
+
+        # Interning example
+        x = "hello"
+        y = "hello"
+        z = sys.intern("hel" + "lo")  # Force intern a dynamically built string
+
+        print(f"\n  x = 'hello'        id={id(x)}")
+        print(f"  y = 'hello'        id={id(y)}")
+        print(f"  z = intern('hel'+'lo') id={id(z)}")
+        print(f"  x is y? {x is y}   (compile-time literals share ONE heap object)")
+        print(f"  x is z? {x is z}   (intern forces reuse of the same heap object)")
+        print(f"  refcount of x = {sys.getrefcount(x)} (many refs: interned + locals + getrefcount)")
+
+        # Non-interned dynamic string
+        dynamic = input_str1 + " " + input_str1
+        print(f"\n  dynamic = input_str1 + ' ' + input_str1")
+        print(f"  dynamic value   : '{dynamic}'")
+        print(f"  id(dynamic)     : {id(dynamic)}  (new heap allocation)")
+        print(f"  refcount        : {sys.getrefcount(dynamic)}")
+
+        print(f"\n{'=' * 70}")
+        print(f"  SUMMARY")
+        print(f"{'=' * 70}")
+        print(f"""
+  • STACK (PyFrame):  Every function call creates a PyFrameObject on the
+    C stack. Local variable NAMES live here as references (pointers).
+
+  • PyObject (Heap):  Every Python object — including every string — is a
+    PyObject struct allocated on the HEAP. The struct starts with
+    ob_refcnt and ob_type, followed by type-specific data.
+
+  • IMMUTABLE:  str is a SEQUENCE type that supports indexing, slicing,
+    and iteration, but NEVER in-place mutation. Every "modification"
+    allocates a NEW PyObject on the heap; the original is unchanged.
+
+  • INTERNING:  CPython may intern short string literals so multiple
+    names share the SAME heap object (same id), saving memory.
+        """)
+
 if __name__=="__main__":
     input_str = input("Enter a string: ")
     s = StringsOverview(input_str)
@@ -200,3 +413,5 @@ if __name__=="__main__":
     s.understandingrange()
     s.stringsAnalysis()
     s.Demo().LetSee()
+    s.whitespacesStripping(input_str)
+    s.ImmutableObjectSequenceTypesString(input_str)
