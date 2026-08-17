@@ -150,15 +150,40 @@ class StringsOverview:
         x=str(c)+str(d)
         print(f"type of x: {type(x)}")
         print(f"x= {x}")
+        reversed_string:str=self.input_str[::-1]
+        print(reversed_string)
+        temp:str=""
+        # range(start= len(self.input_str)-1, stop=-1, step=-1) as stop is always exclusive so the range is till 0
+        for i in range(len(self.input_str)-1,-1,-1):
+            temp+=self.input_str[i] 
+        print(temp)  
     def understandingrange(self):
         r1 = range(10)
         r2 = range(10)
         print(r1 == r2)  # True  (Value equality check succeeds in O(1))
         print(r1 is r2)  # False (Distinct memory addresses on the heap)
         print(id(r1) != id(r2))  # True
-        print(id(r1),id(r2))  # DIFFERENT memory addresses  
+        print(id(r1),id(r2))  # DIFFERENT memory addresses
+        r3=range(5,-1,-1)
+        print(list(r3)) #[len(input_str)-1,..........,5,4,3,2,1,0]
     def  stringsAnalysis(self):
-        pass        
+        newstr:str=input("Enter a new string: ")
+        print(id(newstr),id(self.input_str))
+        print(newstr is self.input_str )
+        self.input_str=sys.intern(self.input_str)
+        print(id(newstr),id(self.input_str))
+        print(newstr is self.input_str )
+        pass 
+    class Demo:
+        input_str = "STRING"  # Class-level literal (compiled into module co_consts)
+        def LetSee(self):
+            newstr = "STRING"  # Function-level literal (shares same interned pointer)
+            print(newstr is self.input_str)  # True
+        # def __init__(self,input_str1:str):
+        #     self.input_str1=input_str1
+    demo = Demo()    
+    demo.LetSee()
+           
 if __name__=="__main__":
     input_str = input("Enter a string: ")
     s = StringsOverview(input_str)
@@ -173,3 +198,5 @@ if __name__=="__main__":
     s.comparingStrings()
     s.slicingStrings(input_str)
     s.understandingrange()
+    s.stringsAnalysis()
+    s.Demo().LetSee()
