@@ -396,6 +396,32 @@ class StringsOverview:
   • INTERNING:  CPython may intern short string literals so multiple
     names share the SAME heap object (same id), saving memory.
         """)
+    def Repetitions(self,s:str):
+#'''You are given a DNA sequence: a string consisting of characters A, C, G, and T. Your task is to find the longest repetition in the sequence. This is a maximum-length substring containing only one type of character.
+# Input
+# The only input line contains a string of n characters.
+# Output
+# Print one integer: the length of the longest repetition.
+# Constraints
+# 1 \le n \le 10^6
+# Example
+# Input:
+# ATTCGGGA
+# Output:
+# 3'''
+             length=len(s)
+             max_frequency:int=0
+             for i in range(length):
+                frequency=s.count(s[i])
+                #count=1
+                #for j in range(1,len(s)):
+                #     if s[j] == s[j-1]:
+                #          count+=1
+                #     else:
+                #          break
+                if frequency>max_frequency:
+                    max_frequency=frequency
+             return max_frequency
 
 if __name__=="__main__":
     input_str = input("Enter a string: ")
@@ -415,3 +441,5 @@ if __name__=="__main__":
     s.Demo().LetSee()
     s.whitespacesStripping(input_str)
     s.ImmutableObjectSequenceTypesString(input_str)
+    input_DNA_sequence = input("The DNA sequence is:")
+    print(s.Repetitions(input_DNA_sequence))
