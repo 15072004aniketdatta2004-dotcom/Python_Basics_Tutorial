@@ -237,4 +237,8 @@ if __name__=="__main__":
     machines_input = list(map(int, input("Enter machine times (space-separated, e.g. 3 2 5): ").split()))
     products = int(input("Enter number of products to produce: "))
     whileobj.factoryMachines(machines_input, products)
+    #List Comprehension
+    strList = ['Ulis', 'Tolus', 'Utah', 'Ralf', 'Chair']
+    print(sum(1 for el in strList if el.startswith('U')))
+    
 
