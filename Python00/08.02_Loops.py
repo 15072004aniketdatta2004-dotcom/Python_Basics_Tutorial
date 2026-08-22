@@ -16,7 +16,7 @@
 
 # Output:
 # 3 10 5 16 8 4 2 1
-class Loops:
+class ForLoops:
     def __init__(self,n:int):
         self.n=n
     def weirdNumber(self,n:int):
@@ -107,7 +107,7 @@ class Loops:
             
 if __name__=="__main__":
     num:int=int(input("enter a positive integer Number:"))
-    obj=Loops(num)
+    obj=ForLoops(num)
     obj.weirdNumber(num)
     number:list[float]=list(map(float,input("enter a number:").split()))
     print(obj.missingNumber(number))
@@ -144,3 +144,20 @@ if __name__=="__main__":
 
 
 #While Loop
+
+class WhileLoops:
+    def __init__(self,n:int):
+        self.n=n
+    def weirdNumber(self,n:int):
+        while (n!=1):
+            print(n,end=' ')
+            if(n%2!=0):
+                n=(n*3)+1
+            elif(n%2==0):
+                n//=2
+            else:
+                print("the given number is not positive Integer")
+        print(1)
+        pass
+
+    
