@@ -16,6 +16,7 @@
 
 # Output:
 # 3 10 5 16 8 4 2 1
+import typing_extensions
 class ForLoops:
     def __init__(self,n:int):
         self.n=n
@@ -187,7 +188,7 @@ class WhileLoops:
 
         print(f"Minimum time to produce {t} products = {lo}")
         return lo
-
+        
 
 if __name__=="__main__":
 
@@ -240,5 +241,39 @@ if __name__=="__main__":
     #List Comprehension
     strList = ['Ulis', 'Tolus', 'Utah', 'Ralf', 'Chair']
     print(sum(1 for el in strList if el.startswith('U')))
+    #List comprehension
+    li = [1,2,3,4,5,6,7,8,9,10]
+    new_li=[2*x if x%2==0 else 3*x for x in li] #[3,4,9,8,15,12,21,16,27,20]
+    # new_li = [2*x if x%2==0 else 3*x if x%3==0 for x in li] 
+    #new_li=[(2*x if x%2==0 else (3*x for x in li)) (if x%2!=0)] #[3,9,15,21,27] 
+    #if x%2 ==0 then double x else (triple x) for x in li such that x%2==0
+    odd_new_li=[2*x if x%2==0 else 3*x for x in li if x%2!=0]
+    #for x in li:
+    #   if x%2!=0:
+    #       odd_new_li.append(3*x)
+    #   elif x%2==0:
+    #       odd_new_li.append(2*x)
+    #
+    #
+    #
+    #
+    print(new_li)      
+    #always expect 'else' after if expression
+    # expression for x in iterable
+    # expression for x in iterable if condition
+    l=[22,13,45,50,98,69,43,44,1]
+    n_l=[x+1 if x>=45 else x+5 for x in l]
+    print(n_l)
+    n_l_2=[x+1 if x>=45 else x+5 for x in l if x%2!=0]
+    print(n_l_2)
+    # n_l_3=[x+1 for x in l if x>=45 else x+5 for x in l] 
+    # print(n_l_3)
+    #NestedListComprehensions
+    # since list comprehensions take a list as input and produce a listas output, they are easily nested
+    Coll=[3,2,4,1]
+    doubledCollsuccessor=[elem*2 for elem in [item+1 for item in Coll]] 
+    #[elem*2 for elem in [4,3,5,2]]
+    #[8,6,10,4]
+    # The inner list produces  [4,3,5,2]
+    # So, the outer list produces [8,6,10,4]
     
-

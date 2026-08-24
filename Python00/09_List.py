@@ -13,8 +13,21 @@ class List:
         print(type(emptyList),type(emptyArray))
         print(id(emptyList),id(emptyArray))
         for l in range(0,0,1):
-            print(l)                  
+            print(l)
+    def IncreasingList(self,arr:list[int],N:int):
+        ans=0
+        for i in range(1,N):
+            if arr[i-1]>arr[i]:
+                ans+=(arr[i-1]-arr[i])
+                arr[i]=arr[i-1]
+        return ans
+
 if __name__=="__main__":
     List2=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
     obj=List(List2)
     obj.emptyList(List2)
+    N=int(input("Enter the size of the list: "))
+    #How to take a list as an user Input
+    arr=[int(input(f"Enter the element at index {i}: ")) for i in range(N)]
+    print(f"The minimum number of moves required to make the given List:{arr}as an increasing list is={obj.IncreasingList(arr,N)}")
+    
