@@ -1,9 +1,13 @@
+import sys
+import numpy
 class List:
     def __init__(self,lst):
         self.lst=lst
     def emptyList(self,lst):
         # for k in list(range(0,len(self.lst),-1)):
         #     print(self.lst[k])
+        print(id([])) #refering to some object id and memory address where there is nothing
+        print(sys.getrefcount([]))#1
         for k in list(range(0,len(self.lst),-1)):
               print(k,self.lst[k])
         import numpy as np
