@@ -21,7 +21,18 @@ class List:
                 ans+=(arr[i-1]-arr[i])
                 arr[i]=arr[i-1]
         return ans
-
+    def strictly_Increasing_List(self,arr:list[int]):
+        n=len(arr)
+        # Step 1: Sort using swaps (Bubble Sort)
+        for i in range(n):
+            for j in range(0,n-i-1):
+                if arr[j]>arr[j+1]:
+                    arr[j],arr[j+1]=arr[j+1],arr[j]
+        # Step 2: Fix duplicates to ensure strictly increasing
+        for i in range(1,n):
+            if arr[i]<=arr[i-1]:
+                arr[i]=arr[i-1]+1
+        return arr
 if __name__=="__main__":
     List2=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
     obj=List(List2)
@@ -29,5 +40,5 @@ if __name__=="__main__":
     N=int(input("Enter the size of the list: "))
     #How to take a list as an user Input
     arr=[int(input(f"Enter the element at index {i}: ")) for i in range(N)]
-    print(f"The minimum number of moves required to make the given List:{arr}as an increasing list is={obj.IncreasingList(arr,N)}")
-    
+    print(f"The minimum number of moves required to make the given List:{arr}as an increasing list is={obj.IncreasingList(arr[:],N)}")
+    print(f"The strictly_Increasing_List is:{obj.strictly_Increasing_List(arr)}")
