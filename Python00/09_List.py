@@ -121,7 +121,20 @@ class List:
         # 'b' = signed char, 'i' = signed int, 'f' = float, 'd' = double
         float_arr = array('f', [1.1, 2.2, 3.3])
         print("\nFloat array:", float_arr)
-
+        alist=[10,20,30]
+        print(hex(id(alist)))
+        print(hex(id(alist)))
+    def ListFunctionality(self,message:str):
+           # Converting Strings into Lists and Lists back into Strings
+           list_from_message:list[str]=list(message.strip(" ").split(" "))
+           print(f"The list from the message is: {list_from_message}") 
+           list_from_message[0:len(list_from_message)]=input("Enter the New Message: ")
+           print(f"The new list is: {list_from_message}")
+           print(f"the obtained string from the new list is :{str(''.join(list_from_message))}  \n ") 
+    def ListSlicing(self):
+        myList:list[int]=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
+        print(myList[::-1]) #reversing the list using slicing list[start:stop:step]
+        #list[stop-1:start:-k] k is Positive integer
 if __name__=="__main__":
     li=["Python 3.16.2","CPython 3.13.1","PythonCompiler 3.9.5"]
     print(li[0],li[1],li[2],sep="\n")
@@ -137,3 +150,53 @@ if __name__=="__main__":
     myList:list[int]=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
     obj.Mutability_of_Lists(myList)        
     print(hex(id(myList)))
+    message:str=input("Enter the message: ")
+    obj.ListFunctionality(message)
+    StrippedString = "Gate DA".strip('""')
+    print(StrippedString)
+    print(type(StrippedString)) #class str
+    StrippedIntegerWrappedInString=int('123'.strip().strip("''"))
+    print(StrippedIntegerWrappedInString)
+    print(type(StrippedIntegerWrappedInString)) #class <int>
+    obj.ListSlicing()
+    #Understanding Mutability of the list with inplace modification of the list with extend([...])
+    blist=[1,5,8,2,6]
+    print(id(blist))
+    print(blist)
+    blist.extend([9,10])
+    print(id(blist)) # same memory address so its inplace modification 
+    print(blist)
+    #append
+    # the whole arguement within the list.append(1 arg) is treated as single element
+    LI=[1,5,8,6,2,0]
+    LI.append(int("".join(str(item) for item in LI)))
+    print(LI) 
+    #Two Dimensional Lists: Grid-Like Structure
+    # user Input
+    matrix_row_size=int(input("Enter the number of rows: "))
+    matrix_col_size=int(input("Enter the number of columns: "))
+    matrix=[]
+    for i in range(matrix_row_size):
+        row=[]
+        for j in range(matrix_col_size):
+            row.append(int(input(f"Enter the element at index ({i},{j}): ")))
+        matrix.append(row)
+    print(matrix)
+    #List Comprehension
+    # matrix=[[int(input(f"Enter the element at index ({i},{j}): ")) for j in range(matrix_col_size)] for i in range(matrix_row_size)]
+    # print(matrix)
+    # Shallow Copy & Deep Copy
+    import copy
+    twodli=[[1,2,3],[4,5,6],[7,8,9]]
+    print(id(twodli))
+    copy1=copy.copy(twodli)
+    copy1[0][0]=90
+    print(id(copy1))
+    print(copy1)
+    print(twodli)
+    copy2=copy.deepcopy(twodli)
+    print(id(copy2))
+    copy2[0][0]=900
+    print(copy2)
+    print(twodli)    
+    
