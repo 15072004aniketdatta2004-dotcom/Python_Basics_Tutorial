@@ -56,8 +56,11 @@ class Functions_and_LambdaFunctions:
     def my_food(self,food:list[str])->None:
         print(id(food)) # same object reference as fruits
         for x in food:
-            print(x,end=" ") 
-        
+            print(x,end=" ")
+    x=300
+    # def unbound_Local_Error(self)->None:
+    #      x=x+1
+    def    
     def main(self)->None:
       num0:float= float(input("Enter the number whose cube has to be computed:"))
       print(f"The cube of {num0} is: {self.cube(num0)}",end="\n") # function calling 
@@ -102,7 +105,9 @@ class Functions_and_LambdaFunctions:
         fruits:list[str]=[input("Enter a fruit name:") for _ in range(3)]
         print(id(fruits)) # same object reference as food arguement in fruits
         print(self.my_food(fruits))
-
+        # x=300
+        # self.unbound_Local_Error() UnboundLocalError: cannot access local variable 'x' where it is not associated with a value
+        # print(x)
     # def (self,name=None)->None:
     #   print("No name!")
 if __name__ == "__main__":
