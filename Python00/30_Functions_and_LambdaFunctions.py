@@ -3,6 +3,7 @@ import typing
 import ctypes
 # import nanoleafapi
 import os
+import numpy as np
 class Functions_and_LambdaFunctions:
     # A constructor is also a method to create objects which is called in the main function 
     # as Functions_and_LambdaFunctions() for non parameterized constructor and 
@@ -57,10 +58,29 @@ class Functions_and_LambdaFunctions:
         print(id(food)) # same object reference as fruits
         for x in food:
             print(x,end=" ")
-    x=300
     # def unbound_Local_Error(self)->None:
     #      x=x+1
-    def    
+    x=300
+    def sumOfArrays(self)->None:
+        # global arr1, arr2, result
+        arr1=[float(input(f"Enter the [{i}][{j}] element of array 1: ")) for i in range(0,5) for j in range(0,5)]
+        arr2=[float(input(f"Enter the [{i}][{j}] element of array 2: ")) for i in range(0,5) for j in range(0,5)]
+        result=np.array(arr1)+np.array(arr2)
+        print(result)
+    def  myfunc(self)-> float:
+        global x
+        # x=self.x+1
+        x=5
+        x=5.0
+        print(x)
+        return x
+    def inPlaceListModifierBySumOfPrevElement(self,LIST:list[float]):
+        print(LIST)
+        for i in range(1,len(LIST)):
+            LIST[i]+=LIST[i-1]
+            print(LIST)
+
+              
     def main(self)->None:
       num0:float= float(input("Enter the number whose cube has to be computed:"))
       print(f"The cube of {num0} is: {self.cube(num0)}",end="\n") # function calling 
@@ -108,10 +128,47 @@ class Functions_and_LambdaFunctions:
         # x=300
         # self.unbound_Local_Error() UnboundLocalError: cannot access local variable 'x' where it is not associated with a value
         # print(x)
+        self.myfunc()
+        print(self.myfunc.__func__.__globals__.keys())
+        self.sumOfArrays()
+        LIST:list[float]=[float(input(f"Enter the {i+1}th element of list: ")) for i in range(0,5)]
+        print(id(LIST))
+        self.inPlaceListModifierBySumOfPrevElement(LIST)
+        print(id(LIST))
     # def (self,name=None)->None:
     #   print("No name!")
+
+    
 if __name__ == "__main__":
     name:str=input("Enter your name: ")
     obj = Functions_and_LambdaFunctions(name)
     obj.main()
     # obj.()
+    # global keyword
+    x=300
+    def global_variable_function():
+      global x
+      x=x+1
+      print(x)
+    global_variable_function()
+    print(x) # x=301
+    def increment_x(x)->float:
+        # global x
+        return x+1
+    print(increment_x(x)) # 302
+    print(x) # x=301 
+    x2:int=100
+    def localUnBoundErrorPrinter():
+        # print(x2) #UnboundLocalError: 
+        # cannot access local variable 'x2' where it is not associated with a value
+        global x2
+        x2=5
+        print(x2)
+    localUnBoundErrorPrinter()
+    x3:int=1
+    def printer(x3:int)->None:
+        print(x3)
+        x3:float=float(input("Enter a number: "))
+        print(x3)
+    printer(x3)
+    
