@@ -79,7 +79,30 @@ class Functions_and_LambdaFunctions:
         for i in range(1,len(LIST)):
             LIST[i]+=LIST[i-1]
             print(LIST)
-
+    @staticmethod
+    def pass_by_Value():
+        d="Hello"
+        def func(p):
+            print(id(p))
+            p=p+" ,World"
+            print(id(p))
+        print(id(d))
+        func(d)
+        print(d) # Hello
+        print(id(d))
+    @staticmethod
+    def pass_by_reference(list1):
+        print(id(list1))
+        list1.append(5)
+        print(id(list1))
+        list1=[1,2,3,4,5]
+        print(id(list1))
+        def fun(p,q):
+            p.append(q)
+            print(id(p))
+        fun(list1,7)
+        print(id(list1))
+        print(list1)
               
     def main(self)->None:
       num0:float= float(input("Enter the number whose cube has to be computed:"))
@@ -130,11 +153,14 @@ class Functions_and_LambdaFunctions:
         # print(x)
         self.myfunc()
         print(self.myfunc.__func__.__globals__.keys())
-        self.sumOfArrays()
+        # self.sumOfArrays()
         LIST:list[float]=[float(input(f"Enter the {i+1}th element of list: ")) for i in range(0,5)]
         print(id(LIST))
-        self.inPlaceListModifierBySumOfPrevElement(LIST)
         print(id(LIST))
+        self.pass_by_Value()
+        self.pass_by_reference(LIST)
+        # list1=list1+[6]
+        # print(id(list1))
     # def (self,name=None)->None:
     #   print("No name!")
 
@@ -171,4 +197,12 @@ if __name__ == "__main__":
         x3:float=float(input("Enter a number: "))
         print(x3)
     printer(x3)
-    
+    #Call Stack is require to evaluate this functions below
+    # Higher Order Functions
+    def hofun(fun,seq):
+        return [fun(seq,s) for s in seq]
+    def f(seq,i):
+        return seq[0]+i
+    result = hofun(f,[1,3,2]) # Higher Order Functions
+    print(result)
+     
