@@ -44,11 +44,16 @@ class CoinPiles:
         print("NO")
         return
 
-if __name__=="__main__":
-    t:int=int(input("Enter the number of Test Cases:"))
-    while (t>0):
-        a:int=int(input("Please enter the number of a:"))
-        b:int=int(input("Please enter the number of b:"))
-        coinPiles = CoinPiles(a,b)
-        coinPiles.solveCoinPilesForTwoVariables(a,b)
-        t-=1
+def main() -> None:
+    """Interactive entry point: prompt for test cases and solve."""
+    t: int = int(input("Enter the number of Test Cases: "))
+    while t > 0:
+        a: int = int(input("Please enter the number of a: "))
+        b: int = int(input("Please enter the number of b: "))
+        coinPiles = CoinPiles(a, b)
+        coinPiles.solveCoinPilesForTwoVariables(a, b)
+        t -= 1
+
+
+if __name__ == "__main__":
+    main()
