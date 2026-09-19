@@ -182,6 +182,8 @@ if __name__=="__main__":
             row.append(int(input(f"Enter the element at index ({i},{j}): ")))
         matrix.append(row)
     print(matrix)
+    a,b,*rest=matrix
+    print("a=",a,"b=",b,"rest=",rest)  
     #List Comprehension
     # matrix=[[int(input(f"Enter the element at index ({i},{j}): ")) for j in range(matrix_col_size)] for i in range(matrix_row_size)]
     # print(matrix)
@@ -199,4 +201,7 @@ if __name__=="__main__":
     copy2[0][0]=900
     print(copy2)
     print(twodli)    
+    iterators=[2,1,3,4,7]
+    print(*iterators,sep="\n") #print(iterators[0],iterators[1],iterators[2],iterators[3],iterators[4],sep="\n")
+    print(iterators[0],iterators[1],iterators[2],iterators[3],iterators[4],sep="\n")
     

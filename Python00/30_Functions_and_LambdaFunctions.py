@@ -420,4 +420,5 @@ if __name__ == "__main__":
         return seq[0]+i
     result = hofun(f,[1,3,2]) # Higher Order Functions
     print(result)
-     
+    f(seq=[1,2],i=0) #whenever you want to explicitly mention any arguement krrping an arguement in between set to its default value
+    
