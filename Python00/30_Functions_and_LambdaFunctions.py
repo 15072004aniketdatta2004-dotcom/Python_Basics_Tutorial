@@ -1,5 +1,6 @@
 import sys
 import typing
+from typing import Any
 import ctypes
 # import nanoleafapi
 import os
@@ -19,11 +20,11 @@ class Functions_and_LambdaFunctions:
     def __init__(self, name:str)->None:
         self.name = name
     # The function is defined here
-    def happyBirthday(self, name:str=None)->str:
+    def happyBirthday(self, name:str|None=None)->str:
         if name:
             return f"Happy Birthday to {name}!"
         return "Happy Birthday to You!"
-    def say_hello(self,name:str=None)->None:
+    def say_hello(self,name:str|None=None)->None:
        if name:
         print(f"Hello {name}!")
        else: 
@@ -342,6 +343,7 @@ class Functions_and_LambdaFunctions:
         self.positionalBinding(3,5)
         self.positionalBinding(3,5,10)
         choice=input("Choose 'c' for characters , i for integers and f for floats")
+        element: str | int | float | None = None
         match choice:
             case 'c':
                 element=input("Enter the element: ")
@@ -371,9 +373,9 @@ class Functions_and_LambdaFunctions:
         print(self.concatenate_strings(' Aniket'))
         print(self.concatenate_strings('Hello',' Aniket'))
         Size:int=int(input("Enter the size of the list: "))
-        Li:list[any]=[]
+        Li:list[Any]=[]
         for _ in range(Size):
-            element:int=int(input("Enter the element: "))
+            element=int(input("Enter the element: "))
             Li = self.List_appender(element,Li)
         print(Li)
         self.decimal_fraction_complex_operations()
@@ -407,11 +409,11 @@ if __name__ == "__main__":
         print(x2)
     localUnBoundErrorPrinter()
     x3:int=1
-    def printer(x3:int)->None:
+    def printer(x3:float)->None:
         print(x3)
-        x3:float=float(input("Enter a number: "))
+        x3=float(input("Enter a number: "))
         print(x3)
-    printer(x3)
+    printer(float(x3))
     #Call Stack is require to evaluate this functions below
     # Higher Order Functions
     def hofun(fun,seq):
@@ -427,4 +429,24 @@ if __name__ == "__main__":
     #Factorial's Lambda function
     factorial= lambda n:n*factorial(n-1) if n>0 else 1
     print(factorial(5)) #120
-   
+    print((lambda x:x%2==0)(2)) #True
+    print((lambda x:x%2==0)(1)) #False
+    plus5=(lambda y:y+5)(4) #9
+    #Higher-Order Function
+    do_twice= (lambda func,arg:func(func(arg)))(lambda x:x**2,float(input("Enter the number whose square of square has to be computed")))
+    # arg:float=float(input("Enter the number whose square of square has to be computed"))
+    print(do_twice) # 625
+    is_prime=(lambda n:all(n%i!=0 for i in range(2,int(n**0.5)+1)) if n>1 else 0)(int(input("Enter a number: ")))
+    print(is_prime) 
+    # Prime Number Generator using Lambda Functions
+    # is_prime_predicate: checks if a single number 'n' is prime
+    # Returns True if n > 1 and has no divisors from 2 to sqrt(n), else False
+    is_prime_predicate = lambda n: all(n % i != 0 for i in range(2, int(n**0.5) + 1)) if n > 1 else False
+    # primesInRange: higher-order lambda that takes a predicate function 'f' and upper limit 'max_val'
+    # Generates numbers from 2 up to max_val (inclusive) and filters them using 'f'
+    primesInRange = lambda f, max_val: np.array([i for i in range(2, max_val + 1) if f(i)])
+    # Get range from user and generate all primes within that range
+    Range = int(input("Enter the range for prime number generation: "))
+    primes = primesInRange(is_prime_predicate, Range)
+    print(f"Prime numbers from 2 to {Range}: {primes}")
+    print(f"Total primes found: {len(primes)}")
