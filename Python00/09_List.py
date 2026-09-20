@@ -217,3 +217,5 @@ if __name__=="__main__":
     vecA=list(map(float,input("Enter the elements of vector A: ").split(" ")))
     vecB=list(map(float,input("Enter the elements of vector B: ").split(" ")))
     print(obj.twoVectorsAdditionOfProducts(vecA,vecB))
+    m=[[1,2,3],[4,5,6]]
+    print(list(zip(*m)))
