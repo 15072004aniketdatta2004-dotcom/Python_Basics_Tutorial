@@ -449,4 +449,5 @@ if __name__ == "__main__":
     Range = int(input("Enter the range for prime number generation: "))
     primes = primesInRange(is_prime_predicate, Range)
     print(f"Prime numbers from 2 to {Range}: {primes}")
-    print(f"Total primes found: {len(primes)}")
+    print(f"Total primes found: {len(primes)}")
+    
