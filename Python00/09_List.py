@@ -12,8 +12,8 @@ class List:
         for k in list(range(0,len(self.lst),-1)):
               print(k,self.lst[k])
         import numpy as np
-        emptyList=list[range(0,11,-1)]
-        emptyArray=np.array(list[range(0,11,-1)])
+        emptyList=list(range(0,11,-1))
+        emptyArray=np.array(list(range(0,11,-1)))
         print(emptyList,emptyArray)
         print(type(emptyList),type(emptyArray))
         print(id(emptyList),id(emptyArray))
@@ -130,11 +130,13 @@ class List:
            print(f"The list from the message is: {list_from_message}") 
            list_from_message[0:len(list_from_message)]=input("Enter the New Message: ")
            print(f"The new list is: {list_from_message}")
-           print(f"the obtained string from the new list is :{str(''.join(list_from_message))}  \n ") 
+           print(f"the obtained string from the new list is :{''.join(list_from_message)}  \n ") 
     def ListSlicing(self):
-        myList:list[int]=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
+        myList:list[int]=[int(item.strip().strip('"')) for item in input("Enter the list of integers separated by comma: ").split(",")]
         print(myList[::-1]) #reversing the list using slicing list[start:stop:step]
         #list[stop-1:start:-k] k is Positive integer
+    def twoVectorsAdditionOfProducts(self, vecA, vecB):
+        return sum(x*y for x,y in zip(vecA,vecB))
 if __name__=="__main__":
     li=["Python 3.16.2","CPython 3.13.1","PythonCompiler 3.9.5"]
     print(li[0],li[1],li[2],sep="\n")
@@ -147,7 +149,7 @@ if __name__=="__main__":
     arr=[int(input(f"Enter the element at index {i}: ")) for i in range(N)]
     print(f"The minimum number of moves required to make the given List:{arr}as an increasing list is={obj.IncreasingList(arr[:],N)}")
     print(f"The strictly_Increasing_List is:{obj.strictly_Increasing_List(arr)}")
-    myList:list[int]=[item.strip().strip('"') for item in input("Enter the list of integers separated by comma: ").split(",")]
+    myList:list[int]=[int(item.strip().strip('"')) for item in input("Enter the list of integers separated by comma: ").split(",")]
     obj.Mutability_of_Lists(myList)        
     print(hex(id(myList)))
     message:str=input("Enter the message: ")
@@ -204,4 +206,14 @@ if __name__=="__main__":
     iterators=[2,1,3,4,7]
     print(*iterators,sep="\n") #print(iterators[0],iterators[1],iterators[2],iterators[3],iterators[4],sep="\n")
     print(iterators[0],iterators[1],iterators[2],iterators[3],iterators[4],sep="\n")
-    
+    print(list(zip({0,3,6},{1,4,7},{2,5,8}))) #[(0,1,8),(3,4,2),(6,7,5)]
+    pairs=list(zip({0,3,6},{1,4,7},{2,5,8})) # zipping three sets
+    #unzipping individual iterables from pairs
+    individual_iterableA,individual_iterableB,individual_iterableC=list(zip(*pairs))
+    print(individual_iterableA)
+    print(individual_iterableB)
+    print(individual_iterableC)
+    #taking two vectors from user input and calculating the sum of the product of their corresponding elements
+    vecA=list(map(float,input("Enter the elements of vector A: ").split(" ")))
+    vecB=list(map(float,input("Enter the elements of vector B: ").split(" ")))
+    print(obj.twoVectorsAdditionOfProducts(vecA,vecB))
