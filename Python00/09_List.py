@@ -219,3 +219,6 @@ if __name__=="__main__":
     print(obj.twoVectorsAdditionOfProducts(vecA,vecB))
     m=[[1,2,3],[4,5,6]]
     print(list(zip(*m)))
+    #List Comprehension and transpose given 2d matrix of order 2x3
+    print([list(elem) for elem in list(zip(*m))])
+    
